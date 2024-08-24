@@ -38,4 +38,10 @@ public class Constants {
 	public static final int FRONT_LEFT_DRIVE_ID = 12;
 
 	public static final int PIGEON_ID = 13;
+
+	// roboRIO can loop 
+	public static final int ELEVATOR_1 = 14;
+	public static final int ELEVATOR_2 = 15;
+	public static final int AMP = 16;
+	public static final int INTAKE = 17;
 }
