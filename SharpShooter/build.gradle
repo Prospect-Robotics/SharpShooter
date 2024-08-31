@@ -69,12 +69,14 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'junit:junit:4.13.2'
 }
 
+downloadDepsPreemptively.dependsOn gradle.includedBuild("lib2813").task(":lib:jar")
+downloadDepsPreemptively.dependsOn gradle.includedBuild("lib2813").task(":limelight:jar")
+
 test {
-    useJUnitPlatform()
+    useJUnit()
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
 }
 
