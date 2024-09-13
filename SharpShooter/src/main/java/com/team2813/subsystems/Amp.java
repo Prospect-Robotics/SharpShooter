@@ -11,7 +11,7 @@ import static com.team2813.Constants.AMP;
 public class Amp extends SubsystemBase {
 	private final Motor gary;
 	public Amp() {
-		gary = new TalonFXWrapper(INTAKE, InvertType.CLOCKWISE);
+		gary = new TalonFXWrapper(AMP, InvertType.CLOCKWISE);
 	}
 
 	public void pushIn() {
