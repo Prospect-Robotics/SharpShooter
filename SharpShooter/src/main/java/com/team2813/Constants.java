@@ -1,5 +1,8 @@
 package com.team2813;
 
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 public class Constants {
 	private Constants() {
 		throw new AssertionError("Not intantionable");
@@ -9,12 +12,22 @@ public class Constants {
 		private DriverConstants() {
 			throw new AssertionError("Not intantionable");
 		}
+		public static CommandPS4Controller DRIVER_CONTROLLER = new CommandPS4Controller(0);
+		public static Trigger SLOW_MODE = DRIVER_CONTROLLER.L1();
+		public static Trigger INTAKE = DRIVER_CONTROLLER.R1();
+		public static Trigger OUTTAKE = DRIVER_CONTROLLER.R2();
 	}
 
 	public static class OperatorConstants {
 		private OperatorConstants() {
 			throw new AssertionError("Not intantionable");
 		}
+		public static CommandPS4Controller OPERATOR_CONTROLLER = new CommandPS4Controller(1);
+		public static Trigger MANUAL_OUTTAKE = OPERATOR_CONTROLLER.L1();
+		public static Trigger MANUAL_INTAKE = OPERATOR_CONTROLLER.R1();
+		public static Trigger ZERO_ELEVATOR_TOP = OPERATOR_CONTROLLER.share();
+		public static Trigger ZERO_ELEVATOR_BOTTOM = OPERATOR_CONTROLLER.options();
+		public static Trigger INTAKE_ONLY_OUTTAKE = OPERATOR_CONTROLLER.povUp();
 	}
 
 	// Front Right swerve module
