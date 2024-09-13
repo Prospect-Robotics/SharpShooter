@@ -22,9 +22,9 @@ public class Amp extends SubsystemBase {
 		gary.set(ControlMode.DUTY_CYCLE, -0.5);
 	}
 
-  public void shootAmp() {
-    gary.set(ControlMode.DUTY_CYCLE, -0.5);
-  }
+	public void shootAmp() {
+		gary.set(ControlMode.DUTY_CYCLE, -0.5);
+	}
 
 	public void stop() {
 		gary.set(ControlMode.DUTY_CYCLE, 0);
