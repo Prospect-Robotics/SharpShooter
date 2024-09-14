@@ -4,20 +4,51 @@
 
 package com.team2813;
 
+import static com.team2813.Constants.OperatorConstants.MANUAL_INTAKE;
+import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
+
+import com.team2813.subsystems.Amp;
+import com.team2813.subsystems.Intake;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-
-import static com.team2813.Constants.DriverConstants.*;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class RobotContainer {
+  private final Amp amp = new Amp();
+  private final Intake intake = new Intake();
+
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-	SLOW_MODE.whileTrue(new PrintCommand("slow mode pressed"));
-	SLOW_MODE.onFalse(new PrintCommand("button released"));
+    MANUAL_INTAKE.onTrue(
+      new ParallelCommandGroup(
+        new InstantCommand(amp::pushIn, amp),
+        new InstantCommand(intake::intake, intake)
+      )
+    );
+    MANUAL_INTAKE.onFalse(
+      new ParallelCommandGroup(
+        new InstantCommand(amp::stop, amp),
+        new InstantCommand(intake::stop, intake)
+      )
+    );
+
+    MANUAL_OUTTAKE.onTrue(
+      new ParallelCommandGroup(
+        new InstantCommand(amp::pushOut, amp),
+        new InstantCommand(intake::outtake, intake)
+      )
+    );
+    MANUAL_OUTTAKE.onFalse(
+      new ParallelCommandGroup(
+        new InstantCommand(amp::stop, amp),
+        new InstantCommand(intake::stop, intake)
+      )
+    );
   }
 
   public Command getAutonomousCommand() {
