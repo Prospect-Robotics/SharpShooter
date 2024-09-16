@@ -4,6 +4,7 @@
 
 package com.team2813;
 
+import static com.team2813.Constants.OperatorConstants.INTAKE_ONLY_OUTTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_INTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
 
@@ -49,6 +50,14 @@ public class RobotContainer {
         new InstantCommand(intake::stop, intake)
       )
     );
+
+	INTAKE_ONLY_OUTTAKE.onTrue(
+		new InstantCommand(intake::outtake, intake)
+	);
+
+	INTAKE_ONLY_OUTTAKE.onFalse(
+		new InstantCommand(intake::stop, intake)
+	);
   }
 
   public Command getAutonomousCommand() {
