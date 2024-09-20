@@ -12,15 +12,15 @@ import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static com.team2813.Constants.ELEVATOR_1;
+import static com.team2813.Constants.ELEVATOR_2;
 import static edu.wpi.first.units.Units.Degrees;
 
 public class Elevator extends MotorSubsystem<Elevator.Position> {
     
-     public ELevator() {
+     public Elevator() {
         super(
-            new MotorSubsystemConfiguration(new TalonFXWrapper(ELEVATOR_1,InvertType.CLOCKWISE ))
-
-            );
+            new MotorSubsystemConfiguration(new TalonFXWrapper(ELEVATOR_1,InvertType.CLOCKWISE)));
+            ((TalonFXWrapper) motor).addFollower(ELEVATOR_2,InvertType.OPPOSE_MASTER);
     }
 
     public enum Position implements Supplier<Measure<Angle>> {
