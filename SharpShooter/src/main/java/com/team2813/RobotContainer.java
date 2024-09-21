@@ -7,8 +7,11 @@ package com.team2813;
 import static com.team2813.Constants.OperatorConstants.INTAKE_ONLY_OUTTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_INTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
+import static com.team2813.Constants.OperatorConstants.OPERATOR_CONTROLLER;
 
+import com.team2813.commands.ElevatorDefaultCommand;
 import com.team2813.subsystems.Amp;
+import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,8 +22,10 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class RobotContainer {
   private final Amp amp = new Amp();
   private final Intake intake = new Intake();
+  private final Elevator elevator = new Elevator();
 
   public RobotContainer() {
+	elevator.setDefaultCommand(new ElevatorDefaultCommand(elevator, () -> -OPERATOR_CONTROLLER.getRightY()));
     configureBindings();
   }
 
