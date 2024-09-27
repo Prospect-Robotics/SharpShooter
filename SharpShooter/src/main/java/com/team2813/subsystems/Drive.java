@@ -70,8 +70,8 @@ public class Drive extends SubsystemBase {
 			.withFeedbackSource(SteerFeedbackType.FusedCANcoder)
 			.withCouplingGearRatio(3.5)
 			.withSteerMotorInverted(true);
-		double frontDist = 0; // x
-		double leftDist = 0; // y
+		double frontDist = 0.280029; // x
+		double leftDist = 0.303514; // y
 		SwerveModuleConstants frontLeft = constantCreator.createModuleConstants(
 			FRONT_LEFT_STEER_ID, FRONT_LEFT_DRIVE_ID,
 			FRONT_LEFT_ENCODER_ID, FLSteerOffset,
