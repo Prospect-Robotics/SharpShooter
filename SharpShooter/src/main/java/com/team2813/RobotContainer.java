@@ -10,14 +10,14 @@ import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
 import static com.team2813.Constants.OperatorConstants.OPERATOR_CONTROLLER;
 
 import com.team2813.commands.ElevatorDefaultCommand;
+import com.team2813.commands.LockFunctionCommand;
 import com.team2813.subsystems.Amp;
 import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
+
+import java.util.concurrent.locks.Lock;
 
 public class RobotContainer {
   private final Amp amp = new Amp();
@@ -56,13 +56,19 @@ public class RobotContainer {
       )
     );
 
-	INTAKE_ONLY_OUTTAKE.onTrue(
-		new InstantCommand(intake::outtake, intake)
-	);
-
-	INTAKE_ONLY_OUTTAKE.onFalse(
-		new InstantCommand(intake::stop, intake)
-	);
+    INTAKE_ONLY_OUTTAKE.onTrue(
+      new InstantCommand(intake::outtake, intake)
+    );
+  
+    INTAKE_ONLY_OUTTAKE.onFalse(
+      new InstantCommand(intake::stop, intake)
+    );
+    
+    INTAKE_ONLY_OUTTAKE.onTrue(
+      new SequentialCommandGroup(
+        new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TEST), elevator)
+      )
+    )
   }
 
   public Command getAutonomousCommand() {
