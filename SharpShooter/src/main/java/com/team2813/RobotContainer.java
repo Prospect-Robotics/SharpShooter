@@ -66,9 +66,9 @@ public class RobotContainer {
     
     INTAKE_ONLY_OUTTAKE.onTrue(
       new SequentialCommandGroup(
-        new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TEST), elevator)
+        new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
       )
-    )
+    );
   }
 
   public Command getAutonomousCommand() {
