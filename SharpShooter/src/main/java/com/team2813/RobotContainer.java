@@ -4,6 +4,7 @@
 
 package com.team2813;
 
+import static com.team2813.Constants.DriverConstants.INTAKE;
 import static com.team2813.Constants.OperatorConstants.INTAKE_ONLY_OUTTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_INTAKE;
 import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
@@ -64,11 +65,22 @@ public class RobotContainer {
       new InstantCommand(intake::stop, intake)
     );
     
-    INTAKE_ONLY_OUTTAKE.onTrue(
+    INTAKE.onTrue(
       new SequentialCommandGroup(
-        new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
+        new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator),
+        new ParallelCommandGroup(
+          new InstantCommand(amp::pushIn, amp),
+          new InstantCommand(intake::intake, intake)
+        )
       )
     );
+    
+    INTAKE.onFalse(
+      new ParallelCommandGroup(
+        new InstantCommand(amp::stop, amp),
+        new InstantCommand(intake::stop, intake)
+      )
+    )
   }
 
   public Command getAutonomousCommand() {
