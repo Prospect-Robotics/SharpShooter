@@ -80,7 +80,7 @@ public class RobotContainer {
         new InstantCommand(amp::stop, amp),
         new InstantCommand(intake::stop, intake)
       )
-    )
+    );
   }
 
   public Command getAutonomousCommand() {
