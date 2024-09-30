@@ -5,13 +5,11 @@
 package com.team2813;
 
 import static com.team2813.Constants.DriverConstants.INTAKE;
-import static com.team2813.Constants.OperatorConstants.INTAKE_ONLY_OUTTAKE;
-import static com.team2813.Constants.OperatorConstants.MANUAL_INTAKE;
-import static com.team2813.Constants.OperatorConstants.MANUAL_OUTTAKE;
-import static com.team2813.Constants.OperatorConstants.OPERATOR_CONTROLLER;
+import static com.team2813.Constants.OperatorConstants.*;
 
 import com.team2813.commands.ElevatorDefaultCommand;
 import com.team2813.commands.LockFunctionCommand;
+import com.team2813.commands.ZeroElevatorCommand;
 import com.team2813.subsystems.Amp;
 import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
@@ -81,6 +79,9 @@ public class RobotContainer {
         new InstantCommand(intake::stop, intake)
       )
     );
+    
+    ZERO_ELEVATOR_TOP.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.TOP));
+    ZERO_ELEVATOR_BOTTOM.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.BOTTOM));
   }
 
   public Command getAutonomousCommand() {
