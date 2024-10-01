@@ -17,10 +17,10 @@ public class Elevator extends MotorSubsystem<Elevator.Position> {
     
      public Elevator() {
         super(
-            new MotorSubsystemConfiguration(new TalonFXWrapper(ELEVATOR_1,InvertType.CLOCKWISE))
+            new MotorSubsystemConfiguration(new TalonFXWrapper(ELEVATOR_1, "swerve", InvertType.COUNTER_CLOCKWISE))
                     .controlMode(ControlMode.VOLTAGE)
         );
-        ((TalonFXWrapper) motor).addFollower(ELEVATOR_2,InvertType.OPPOSE_MASTER);
+        ((TalonFXWrapper) motor).addFollower(ELEVATOR_2, "swerve", InvertType.OPPOSE_MASTER);
     }
 
     public enum Position implements Supplier<Measure<Angle>> {
