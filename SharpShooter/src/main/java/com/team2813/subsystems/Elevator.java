@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 import static com.team2813.Constants.ELEVATOR_1;
 import static com.team2813.Constants.ELEVATOR_2;
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Rotations;
 
 public class Elevator extends MotorSubsystem<Elevator.Position> {
     
@@ -24,13 +25,12 @@ public class Elevator extends MotorSubsystem<Elevator.Position> {
     }
 
     public enum Position implements Supplier<Measure<Angle>> {
-        TEST(0),
-        BOTTOM(0),
-        TOP(0);
+        BOTTOM(0.174316),
+        TOP(19.675781);
 
         private final Measure<Angle> position;
         Position(double position) {
-            this.position = Degrees.of(position);
+            this.position = Rotations.of(position);
         }
         @Override
         public Measure<Angle> get() {

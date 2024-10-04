@@ -11,7 +11,7 @@ import static com.team2813.Constants.INTAKE;
 public class Intake extends SubsystemBase {
 	private final Motor jerald;
 	public Intake() {
-		jerald = new TalonFXWrapper(INTAKE, InvertType.CLOCKWISE);
+		jerald = new TalonFXWrapper(INTAKE, "swerve", InvertType.COUNTER_CLOCKWISE);
 	}
 
 	public void intake() {
