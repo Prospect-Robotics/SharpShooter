@@ -25,6 +25,7 @@ public class Constants {
 		public static CommandPS4Controller OPERATOR_CONTROLLER = new CommandPS4Controller(1);
 		public static Trigger MANUAL_OUTTAKE = OPERATOR_CONTROLLER.L1();
 		public static Trigger MANUAL_INTAKE = OPERATOR_CONTROLLER.R1();
+		public static Trigger AMP = OPERATOR_CONTROLLER.R2();
 		public static Trigger ZERO_ELEVATOR_TOP = OPERATOR_CONTROLLER.share();
 		public static Trigger ZERO_ELEVATOR_BOTTOM = OPERATOR_CONTROLLER.options();
 		public static Trigger INTAKE_ONLY_OUTTAKE = OPERATOR_CONTROLLER.povUp();

@@ -30,10 +30,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
 
-    public static final double MAX_VELOCITY = 6380.0 / 60.0 *
-            SdsModuleConfigurations.MK4I_L2.getDriveReduction() *
-            SdsModuleConfigurations.MK4I_L2.getWheelDiameter() * Math.PI; // m/s
-    public static final double MAX_ANGULAR_VELOCITY = Math.PI * 8; // radians per second
+    public static final double MAX_VELOCITY = 5; // mps
+    public static final double MAX_ANGULAR_VELOCITY = Math.PI * 2; // radians per second
 
     private double multiplier = 1;
 
@@ -66,7 +64,6 @@ public class Drive extends SubsystemBase {
 			.withDriveMotorGains(driveGains)
 			.withSteerMotorClosedLoopOutput(ClosedLoopOutputType.Voltage)
 			.withDriveMotorClosedLoopOutput(ClosedLoopOutputType.TorqueCurrentFOC)
-			.withSpeedAt12VoltsMps(MAX_VELOCITY)
 			.withFeedbackSource(SteerFeedbackType.FusedCANcoder)
 			.withCouplingGearRatio(3.5)
 			.withSteerMotorInverted(true);
