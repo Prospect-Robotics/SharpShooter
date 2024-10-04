@@ -33,7 +33,7 @@ public class RobotContainer {
             drive,
             () -> Units.MetersPerSecond.of(-DRIVER_CONTROLLER.getLeftX() * Drive.MAX_VELOCITY),
             () -> Units.MetersPerSecond.of(-DRIVER_CONTROLLER.getLeftY() * Drive.MAX_VELOCITY),
-            () -> Units.RadiansPerSecond.of(-DRIVER_CONTROLLER.getRightX() * Drive.MAX_VELOCITY)
+            () -> Units.RadiansPerSecond.of(-DRIVER_CONTROLLER.getRightX() * Drive.MAX_ANGULAR_VELOCITY)
     ));
     configureBindings();
   }
