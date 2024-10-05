@@ -15,11 +15,8 @@ import com.team2813.subsystems.Amp;
 import com.team2813.subsystems.Drive;
 import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
-
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.*;
-
-import java.util.concurrent.locks.Lock;
 
 public class RobotContainer {
   private final Amp amp = new Amp();

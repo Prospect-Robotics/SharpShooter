@@ -1,18 +1,16 @@
 package com.team2813.subsystems;
 
+import static com.team2813.Constants.ELEVATOR_1;
+import static com.team2813.Constants.ELEVATOR_2;
+import static edu.wpi.first.units.Units.Rotations;
+
 import com.team2813.lib2813.control.ControlMode;
 import com.team2813.lib2813.control.InvertType;
 import com.team2813.lib2813.control.motors.TalonFXWrapper;
 import com.team2813.lib2813.subsystems.MotorSubsystem;
 import edu.wpi.first.units.Angle;
 import edu.wpi.first.units.Measure;
-
 import java.util.function.Supplier;
-
-import static com.team2813.Constants.ELEVATOR_1;
-import static com.team2813.Constants.ELEVATOR_2;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.Rotations;
 
 public class Elevator extends MotorSubsystem<Elevator.Position> {
     

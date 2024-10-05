@@ -1,11 +1,9 @@
 package com.team2813.commands;
 
-import java.util.function.DoubleSupplier;
-
 import com.team2813.lib2813.control.ControlMode;
 import com.team2813.subsystems.Elevator;
-
 import edu.wpi.first.wpilibj2.command.Command;
+import java.util.function.DoubleSupplier;
 
 public class ElevatorDefaultCommand extends Command {
 	private final Elevator elevator;

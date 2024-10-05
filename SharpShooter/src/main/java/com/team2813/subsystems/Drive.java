@@ -24,18 +24,18 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
 
     public static final double MAX_VELOCITY = 5; // mps
     public static final double MAX_ANGULAR_VELOCITY = Math.PI * 2; // radians per second
-
-    private double multiplier = 1;
-
+	private final SwerveRequest.FieldCentric xyrRequest =
+		new SwerveRequest.FieldCentric()
+				.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+				.withSteerRequestType(SteerRequestType.MotionMagicExpo);
 	SwerveDrivetrain drivetrain;
+    private double multiplier = 1;
 
     public Drive() {
 
@@ -102,15 +102,9 @@ public class Drive extends SubsystemBase {
 		drivetrain.setControl(new SwerveRequest.Idle());
 	}
 
-
     public void enableSlowMode(boolean enable) {
         multiplier = enable ? 0.4 : 1;
     }
-
-	private final SwerveRequest.FieldCentric xyrRequest =
-		new SwerveRequest.FieldCentric()
-				.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-				.withSteerRequestType(SteerRequestType.MotionMagicExpo);
 
 	public void drive(double x, double y, double rotation) {
 		drivetrain.setControl(
