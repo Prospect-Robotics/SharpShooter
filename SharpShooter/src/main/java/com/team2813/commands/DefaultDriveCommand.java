@@ -10,25 +10,24 @@ public class DefaultDriveCommand extends Command {
   private final Supplier<Measure<Velocity<Distance>>> xSupplier;
   private final Supplier<Measure<Velocity<Distance>>> ySupplier;
   private final Supplier<Measure<Velocity<Angle>>> rotationSupplier;
+
   public DefaultDriveCommand(
-          Drive drive,
-          Supplier<Measure<Velocity<Distance>>> xSupplier,
-          Supplier<Measure<Velocity<Distance>>> ySupplier,
-          Supplier<Measure<Velocity<Angle>>> rotationSupplier
-  ) {
+      Drive drive,
+      Supplier<Measure<Velocity<Distance>>> xSupplier,
+      Supplier<Measure<Velocity<Distance>>> ySupplier,
+      Supplier<Measure<Velocity<Angle>>> rotationSupplier) {
     this.drive = drive;
     this.xSupplier = xSupplier;
     this.ySupplier = ySupplier;
     this.rotationSupplier = rotationSupplier;
     addRequirements(drive);
   }
-  
+
   @Override
   public void execute() {
     drive.drive(
         xSupplier.get().in(Units.MetersPerSecond),
         ySupplier.get().in(Units.MetersPerSecond),
-        rotationSupplier.get().in(Units.RadiansPerSecond)
-    );
+        rotationSupplier.get().in(Units.RadiansPerSecond));
   }
 }

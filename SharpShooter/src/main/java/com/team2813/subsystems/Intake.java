@@ -9,20 +9,21 @@ import com.team2813.lib2813.control.motors.TalonFXWrapper;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-	private final Motor jerald;
-	public Intake() {
-		jerald = new TalonFXWrapper(INTAKE, "swerve", InvertType.COUNTER_CLOCKWISE);
-	}
+  private final Motor jerald;
 
-	public void intake() {
-		jerald.set(ControlMode.DUTY_CYCLE, 0.5);
-	}
+  public Intake() {
+    jerald = new TalonFXWrapper(INTAKE, "swerve", InvertType.COUNTER_CLOCKWISE);
+  }
 
-	public void outtake() {
-		jerald.set(ControlMode.DUTY_CYCLE, -0.5);
-	}
+  public void intake() {
+    jerald.set(ControlMode.VOLTAGE, 0.5);
+  }
 
-	public void stop() {
-		jerald.set(ControlMode.DUTY_CYCLE, 0);
-	}
+  public void outtake() {
+    jerald.set(ControlMode.VOLTAGE, -0.5);
+  }
+
+  public void stop() {
+    jerald.set(ControlMode.VOLTAGE, 0);
+  }
 }

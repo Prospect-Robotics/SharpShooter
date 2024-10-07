@@ -6,15 +6,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.DoubleSupplier;
 
 public class ElevatorDefaultCommand extends Command {
-	private final Elevator elevator;
-	private final DoubleSupplier movement;
-	public ElevatorDefaultCommand(Elevator elevator, DoubleSupplier movement) {
-		this.elevator = elevator;
-		this.movement = movement;
-		addRequirements(elevator);
-	}
-	@Override
-	public void execute() {
-		elevator.set(ControlMode.DUTY_CYCLE, movement.getAsDouble());
-	}
+  private final Elevator elevator;
+  private final DoubleSupplier movement;
+
+  public ElevatorDefaultCommand(Elevator elevator, DoubleSupplier movement) {
+    this.elevator = elevator;
+    this.movement = movement;
+    addRequirements(elevator);
+  }
+
+  @Override
+  public void execute() {
+    elevator.set(ControlMode.DUTY_CYCLE, movement.getAsDouble());
+  }
 }

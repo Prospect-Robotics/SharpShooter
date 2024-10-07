@@ -9,24 +9,25 @@ import com.team2813.lib2813.control.motors.TalonFXWrapper;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Amp extends SubsystemBase {
-	private final Motor gary;
-	public Amp() {
-		gary = new TalonFXWrapper(AMP, "swerve", InvertType.CLOCKWISE);
-	}
-	
-	public void pushIn() {
-		gary.set(ControlMode.DUTY_CYCLE, 0.5);
-	}
+  private final Motor gary;
 
-	public void pushOut() {
-		gary.set(ControlMode.DUTY_CYCLE, -0.5);
-	}
+  public Amp() {
+    gary = new TalonFXWrapper(AMP, "swerve", InvertType.CLOCKWISE);
+  }
 
-	public void shootAmp() {
-		gary.set(ControlMode.DUTY_CYCLE, -0.5);
-	}
+  public void pushIn() {
+    gary.set(ControlMode.VOLTAGE, 0.5);
+  }
 
-	public void stop() {
-		gary.set(ControlMode.DUTY_CYCLE, 0);
-	}
+  public void pushOut() {
+    gary.set(ControlMode.VOLTAGE, -0.5);
+  }
+
+  public void shootAmp() {
+    gary.set(ControlMode.VOLTAGE, -0.5);
+  }
+
+  public void stop() {
+    gary.set(ControlMode.VOLTAGE, 0);
+  }
 }
