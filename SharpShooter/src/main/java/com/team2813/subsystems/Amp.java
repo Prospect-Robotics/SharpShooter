@@ -16,15 +16,15 @@ public class Amp extends SubsystemBase {
   }
 
   public void pushIn() {
-    gary.set(ControlMode.VOLTAGE, 0.5);
+    gary.set(ControlMode.VOLTAGE, 1);
   }
 
   public void pushOut() {
-    gary.set(ControlMode.VOLTAGE, -0.5);
+    gary.set(ControlMode.VOLTAGE, -1);
   }
 
   public void shootAmp() {
-    gary.set(ControlMode.VOLTAGE, -0.5);
+    gary.set(ControlMode.VOLTAGE, -1);
   }
 
   public void stop() {
