@@ -11,7 +11,7 @@ public class ElevatorDefaultCommand extends Command {
 
   public ElevatorDefaultCommand(Elevator elevator, DoubleSupplier movement) {
     this.elevator = elevator;
-    this.movement = movement;t
+    this.movement = movement;
     addRequirements(elevator);
   }
   
