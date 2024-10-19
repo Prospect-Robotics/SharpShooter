@@ -36,6 +36,7 @@ public class Constants {
     public static Trigger SLOW_MODE = DRIVER_CONTROLLER.L1();
     public static Trigger INTAKE = DRIVER_CONTROLLER.R1();
     public static Trigger OUTTAKE = DRIVER_CONTROLLER.R2();
+    public static Trigger TEST = DRIVER_CONTROLLER.cross();
 
     private DriverConstants() {
       throw new AssertionError("Not instantiable");

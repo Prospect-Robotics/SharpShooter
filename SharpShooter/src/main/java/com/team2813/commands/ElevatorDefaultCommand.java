@@ -11,12 +11,22 @@ public class ElevatorDefaultCommand extends Command {
 
   public ElevatorDefaultCommand(Elevator elevator, DoubleSupplier movement) {
     this.elevator = elevator;
-    this.movement = movement;
+    this.movement = movement;t
     addRequirements(elevator);
   }
-
+  
+  /**
+   * Moves the elevator to its point,
+   */
   @Override
   public void execute() {
-    elevator.set(ControlMode.DUTY_CYCLE, movement.getAsDouble());
+    double val = movement.getAsDouble();
+    if (Math.abs(val) > 0.1) {
+      elevator.set(ControlMode.DUTY_CYCLE, val);
+    } else if (elevator.isEnabled()) {
+      // An InstantCommand initiated the motor, and
+      // PID controller is disabled; stop the elevator motors, potentially sliding down.
+      elevator.set(ControlMode.DUTY_CYCLE, 0);
+    } // ..else an InstantCommand initiated the motor. Leave it running ast the current speed
   }
 }

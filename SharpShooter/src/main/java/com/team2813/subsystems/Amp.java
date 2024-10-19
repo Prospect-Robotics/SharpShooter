@@ -24,7 +24,7 @@ public class Amp extends SubsystemBase {
   }
 
   public void shootAmp() {
-    gary.set(ControlMode.VOLTAGE, -6);
+    gary.set(ControlMode.VOLTAGE, -9);
   }
 
   public void stop() {
