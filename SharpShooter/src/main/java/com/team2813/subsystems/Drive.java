@@ -24,12 +24,18 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
 
-  public static final double MAX_VELOCITY = 5; // mps
+  public static final double MAX_VELOCITY = 6; // mps
   public static final double MAX_ROTATION = Math.PI * 2; // radians per second
   private final SwerveRequest.FieldCentric xyrRequest =
       new SwerveRequest.FieldCentric()
@@ -40,10 +46,10 @@ public class Drive extends SubsystemBase {
 
   public Drive() {
 
-    double FLSteerOffset = 0;
-    double FRSteerOffset = 0;
-    double BLSteerOffset = 0;
-    double BRSteerOffset = 0;
+    double FLSteerOffset = 0.4908046875;
+    double FRSteerOffset = 0.28930664062;
+    double BLSteerOffset = -0.03442382812;
+    double BRSteerOffset = -0.10009765625;
 
     Slot0Configs steerGains =
         new Slot0Configs().withKP(50).withKI(0).withKD(0.2).withKS(0).withKV(1.5).withKA(0);
@@ -62,8 +68,9 @@ public class Drive extends SubsystemBase {
             .withSteerMotorGains(steerGains)
             .withDriveMotorGains(driveGains)
             .withSteerMotorClosedLoopOutput(ClosedLoopOutputType.Voltage)
-            .withDriveMotorClosedLoopOutput(ClosedLoopOutputType.Voltage)
-            .withFeedbackSource(SteerFeedbackType.RemoteCANcoder)
+            .withDriveMotorClosedLoopOutput(ClosedLoopOutputType.TorqueCurrentFOC)
+            .withSpeedAt12VoltsMps(5)
+            .withFeedbackSource(SteerFeedbackType.FusedCANcoder)
             .withCouplingGearRatio(3.5)
             .withSteerMotorInverted(true);
     double frontDist = 0.280029; // x
@@ -108,6 +115,15 @@ public class Drive extends SubsystemBase {
         new SwerveModuleConstants[] {frontLeft, frontRight, backLeft, backRight};
     SwerveDrivetrain drivetrain = new SwerveDrivetrain(drivetrainConstants, constants);
     this.drivetrain = drivetrain;
+    
+    for (int i = 0; i < 4; i++) {
+      int temp = i;
+      Shuffleboard.getTab("swerve").addDouble(String.format("Module [%d] position", i), () -> getPosition(temp));
+    }
+  }
+  
+  private double getPosition(int moduleId) {
+    return drivetrain.getModule(moduleId).getCANcoder().getAbsolutePosition().getValueAsDouble();
   }
 
   public void stop() {
@@ -125,5 +141,23 @@ public class Drive extends SubsystemBase {
             .withVelocityX(x * multiplier)
             .withVelocityY(y * multiplier)
             .withRotationalRate(rotation));
+  }
+  
+  public Rotation2d getRotation() {
+    return drivetrain.getRotation3d().toRotation2d();
+  }
+  
+  StructArrayPublisher<SwerveModuleState> expectedState =
+          NetworkTableInstance.getDefault().getStructArrayTopic("expected state", SwerveModuleState.struct).publish();
+  StructArrayPublisher<SwerveModuleState> actualState =
+          NetworkTableInstance.getDefault().getStructArrayTopic("actual state", SwerveModuleState.struct).publish();
+  StructPublisher<Rotation2d> rotation =
+          NetworkTableInstance.getDefault().getStructTopic("rotation", Rotation2d.struct).publish();
+  
+  @Override
+  public void periodic() {
+    expectedState.set(drivetrain.getState().ModuleTargets);
+    actualState.set(drivetrain.getState().ModuleStates);
+    rotation.set(getRotation());
   }
 }

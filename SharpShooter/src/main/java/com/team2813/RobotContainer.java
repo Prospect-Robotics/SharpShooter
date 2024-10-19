@@ -22,17 +22,17 @@ public class RobotContainer {
   private final Amp amp = new Amp();
   private final Intake intake = new Intake();
   private final Elevator elevator = new Elevator();
-//  private final Drive drive = new Drive();
+  private final Drive drive = new Drive();
 
   public RobotContainer() {
-    elevator.setDefaultCommand(
-        new ElevatorDefaultCommand(elevator, () -> -OPERATOR_CONTROLLER.getRightY()));
-//    drive.setDefaultCommand(
-//        new DefaultDriveCommand(
-//            drive,
-//            () -> Units.MetersPerSecond.of(-modifyAxis(DRIVER_CONTROLLER.getLeftX()) * Drive.MAX_VELOCITY),
-//            () -> Units.MetersPerSecond.of(-modifyAxis(DRIVER_CONTROLLER.getLeftY()) * Drive.MAX_VELOCITY),
-//            () -> Units.RadiansPerSecond.of(-modifyAxis(DRIVER_CONTROLLER.getRightX()) * Drive.MAX_ROTATION)));
+//    elevator.setDefaultCommand(
+//        new ElevatorDefaultCommand(elevator, () -> -OPERATOR_CONTROLLER.getRightY()));
+    drive.setDefaultCommand(
+        new DefaultDriveCommand(
+            drive,
+            () -> Units.MetersPerSecond.of(modifyAxis(DRIVER_CONTROLLER.getLeftX()) * Drive.MAX_VELOCITY),
+            () -> Units.MetersPerSecond.of(-modifyAxis(DRIVER_CONTROLLER.getLeftY()) * Drive.MAX_VELOCITY),
+            () -> Units.RadiansPerSecond.of(-modifyAxis(DRIVER_CONTROLLER.getRightX()) * Drive.MAX_ROTATION)));
     configureBindings();
   }
 
@@ -117,8 +117,8 @@ public class RobotContainer {
     ZERO_ELEVATOR_TOP.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.TOP));
     ZERO_ELEVATOR_BOTTOM.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.BOTTOM));
 
-//    SLOW_MODE.onTrue(new InstantCommand(() -> drive.enableSlowMode(true), drive));
-//    SLOW_MODE.onFalse(new InstantCommand(() -> drive.enableSlowMode(false), drive));
+    SLOW_MODE.onTrue(new InstantCommand(() -> drive.enableSlowMode(true), drive));
+    SLOW_MODE.onFalse(new InstantCommand(() -> drive.enableSlowMode(false), drive));
   }
   
   public Command getAutonomousCommand() {
