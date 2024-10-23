@@ -23,7 +23,7 @@ public class ElevatorDefaultCommand extends Command {
     double val = movement.getAsDouble();
     if (Math.abs(val) > 0.1) {
       elevator.set(ControlMode.DUTY_CYCLE, val);
-    } else if (elevator.isEnabled()) {
+    } else if (!elevator.isEnabled()) {
       // An InstantCommand initiated the motor, and
       // PID controller is disabled; stop the elevator motors, potentially sliding down.
       elevator.set(ControlMode.DUTY_CYCLE, 0);
