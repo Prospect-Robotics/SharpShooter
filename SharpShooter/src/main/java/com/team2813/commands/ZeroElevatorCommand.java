@@ -21,7 +21,7 @@ public class ZeroElevatorCommand extends Command {
     this.elevator = Objects.requireNonNull(elevator);
     if (position != Position.BOTTOM && position != Position.TOP) {
       throw new IllegalArgumentException(
-          String.format("%s is not a supported position", position.toString()));
+          String.format("%s is not a supported position", position));
     }
     this.position = position;
     addRequirements(elevator);
