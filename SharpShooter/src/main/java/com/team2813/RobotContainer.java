@@ -128,13 +128,13 @@ public class RobotContainer {
 
         AMP.onFalse(
                 new SequentialCommandGroup(
-                        new ConditionalCommand(
+                        //new ConditionalCommand(
                                 new SequentialCommandGroup(
                                         new InstantCommand(amp::shootAmp, amp),
                                         new WaitCommand(0.5),
                                         new InstantCommand(amp::stop, amp)),
-                                Commands.none(),
-                                elevator::atPosition),
+                                /*Commands.none(),
+                                elevator::atPosition),*/
                         new InstantCommand(
                                 () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)));
 
