@@ -25,7 +25,7 @@ public class Elevator extends MotorSubsystem<Elevator.Position> {
                 new MotorSubsystemConfiguration(
                         getMotor())
                         .controlMode(ControlMode.VOLTAGE)
-                        .acceptableError(1.5)
+                        .acceptableError(2.5)
                         .controller(getPIDController())
                         .rotationUnit(Units.Radians));
         ((TalonFXWrapper) motor).addFollower(ELEVATOR_2, "swerve", InvertType.OPPOSE_MASTER);

@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
 
-  public static final double MAX_VELOCITY = 8; // mps
+  public static final double MAX_VELOCITY = 10; // mps
   public static final double MAX_ROTATION = Math.PI * 3.5; // radians per second
   private final SwerveRequest.FieldCentric xyrRequest =
       new SwerveRequest.FieldCentric()
