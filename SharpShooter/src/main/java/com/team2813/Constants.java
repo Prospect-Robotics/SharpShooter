@@ -34,7 +34,7 @@ public class Constants {
   public static class DriverConstants {
     public static CommandPS4Controller DRIVER_CONTROLLER = new CommandPS4Controller(0);
     public static Trigger SLOW_MODE = DRIVER_CONTROLLER.L1();
-    public static Trigger MANUAL_OUTTAKE = DRIVER_CONTROLLER.L1();
+    public static Trigger MANUAL_OUTTAKE = DRIVER_CONTROLLER.R2();
     public static Trigger MANUAL_INTAKE = DRIVER_CONTROLLER.R1();
     public static Trigger TEST = DRIVER_CONTROLLER.cross();
 
@@ -46,7 +46,7 @@ public class Constants {
   public static class OperatorConstants {
     public static CommandPS4Controller OPERATOR_CONTROLLER = new CommandPS4Controller(1);
     public static Trigger INTAKE = OPERATOR_CONTROLLER.R1();
-    public static Trigger OUTTAKE = OPERATOR_CONTROLLER.R2();
+    public static Trigger OUTTAKE = OPERATOR_CONTROLLER.L1();
     
     public static Trigger AMP = OPERATOR_CONTROLLER.R2();
     public static Trigger ZERO_ELEVATOR_TOP = OPERATOR_CONTROLLER.share();
