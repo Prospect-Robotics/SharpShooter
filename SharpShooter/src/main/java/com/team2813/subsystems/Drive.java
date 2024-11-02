@@ -40,7 +40,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.pathplanner.lib.auto.AutoBuilder;
-
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.Mass;
 
 public class Drive extends SubsystemBase {
 
@@ -52,8 +53,8 @@ public class Drive extends SubsystemBase {
           .withSteerRequestType(SteerRequestType.MotionMagicExpo);
   SwerveDrivetrain drivetrain;
   private double multiplier = 1;
-  private static class PublicisizedKinematics extends SwerveDrivetrain {
-    public PublicisizedKinematics(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
+  private static class PublicizedKinematics extends SwerveDrivetrain {
+    public PublicizedKinematics(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
       super(driveTrainConstants, modules);
     }
 
@@ -130,7 +131,7 @@ public class Drive extends SubsystemBase {
             true);
     SwerveModuleConstants[] constants =
         new SwerveModuleConstants[] {frontLeft, frontRight, backLeft, backRight};
-    PublicisizedKinematics drivetrain = new PublicisizedKinematics(drivetrainConstants, constants);
+    PublicizedKinematics drivetrain = new PublicizedKinematics(drivetrainConstants, constants);
     this.drivetrain = drivetrain;
     RobotConfig config = new RobotConfig(49.07, 5.26, new ModuleConfig(0.044, MAX_VELOCITY, 1.0,
             DCMotor.getKrakenX60(1).withReduction(6.75),40.0, 1), 0.85, 0.939);
@@ -157,7 +158,7 @@ public class Drive extends SubsystemBase {
   }
   private static boolean onRed() {
     return DriverStation.getAlliance()
-            .<Boolean>map((j) -> j == DriverStation.Alliance.Red)
+            .map((j) -> j == DriverStation.Alliance.Red)
             .orElse(false);
   }
   public Pose2d getAutoPose() {
