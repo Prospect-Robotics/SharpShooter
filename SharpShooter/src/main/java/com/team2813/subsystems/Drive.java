@@ -24,7 +24,12 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
@@ -32,6 +37,8 @@ import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.pathplanner.lib.auto.AutoBuilder;
+
 
 public class Drive extends SubsystemBase {
 
@@ -43,7 +50,15 @@ public class Drive extends SubsystemBase {
           .withSteerRequestType(SteerRequestType.MotionMagicExpo);
   SwerveDrivetrain drivetrain;
   private double multiplier = 1;
+  private static class PublicizedKinematics extends SwerveDrivetrain {
+    public PublicizedKinematics(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
+      super(driveTrainConstants, modules);
+    }
 
+    public ChassisSpeeds getChassisSpeeds() {
+      return m_kinematics.toChassisSpeeds(getState().ModuleStates);
+    }
+  }
   public Drive() {
 
     double FLSteerOffset = 0.4908046875;
@@ -113,9 +128,21 @@ public class Drive extends SubsystemBase {
             true);
     SwerveModuleConstants[] constants =
         new SwerveModuleConstants[] {frontLeft, frontRight, backLeft, backRight};
-    SwerveDrivetrain drivetrain = new SwerveDrivetrain(drivetrainConstants, constants);
+    PublicizedKinematics drivetrain = new PublicizedKinematics(drivetrainConstants, constants);
     this.drivetrain = drivetrain;
-    
+        AutoBuilder.configureHolonomic(
+                this::getAutoPose,
+                this::resetOdometry,
+                drivetrain::getChassisSpeeds,
+                this::drive,
+                new HolonomicPathFollowerConfig(
+                        new PIDConstants(0, 0, 0), // Translation PID
+                        new PIDConstants(0, 0, 0), // Rotation PID
+                        MAX_VELOCITY,
+                        0.303514,
+                        new ReplanningConfig()),
+                Drive::onRed,
+                this);
     for (int i = 0; i < 4; i++) {
       int temp = i;
       Shuffleboard.getTab("swerve").addDouble(String.format("Module [%d] position", i), () -> getPosition(temp));
@@ -125,15 +152,30 @@ public class Drive extends SubsystemBase {
   private double getPosition(int moduleId) {
     return drivetrain.getModule(moduleId).getCANcoder().getAbsolutePosition().getValueAsDouble();
   }
+  private static boolean onRed() {
+    return DriverStation.getAlliance()
+            .<Boolean>map((j) -> j == DriverStation.Alliance.Red)
+            .orElse(false);
+  }
+  public Pose2d getAutoPose() {
+      return drivetrain.getState().Pose;
+  }
+  public void resetOdometry(Pose2d currentPose) {
+    drivetrain.seedFieldRelative(currentPose);
+  }
 
   public void stop() {
     drivetrain.setControl(new SwerveRequest.Idle());
   }
-
+  private final SwerveRequest.ApplyChassisSpeeds chassisSpeedsRequest =
+          new SwerveRequest.ApplyChassisSpeeds().withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+                  .withSteerRequestType(SteerRequestType.MotionMagicExpo);
   public void enableSlowMode(boolean enable) {
     multiplier = enable ? 0.4 : 1;
   }
-
+  public void drive(ChassisSpeeds demand) {
+    drivetrain.setControl(chassisSpeedsRequest.withSpeeds(demand));
+  }
   public void drive(double x, double y, double rotation) {
     DriverStation.reportWarning(String.format("x: %f, y: %f, Ø: %f", x, y, rotation), false);
     drivetrain.setControl(
@@ -142,6 +184,7 @@ public class Drive extends SubsystemBase {
             .withVelocityY(y * multiplier)
             .withRotationalRate(rotation));
   }
+
   
   public Rotation2d getRotation() {
     return drivetrain.getRotation3d().toRotation2d();
