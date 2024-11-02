@@ -40,7 +40,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.pathplanner.lib.auto.AutoBuilder;
-import edu.wpi.first.units.Distance;
 import edu.wpi.first.units.Mass;
 
 public class Drive extends SubsystemBase {
@@ -206,5 +205,10 @@ public class Drive extends SubsystemBase {
     expectedState.set(drivetrain.getState().ModuleTargets);
     actualState.set(drivetrain.getState().ModuleStates);
     rotation.set(getRotation());
+  }
+
+  public static void main(String[] args) {
+    new ModuleConfig(0.044, MAX_VELOCITY, 1.0,
+            DCMotor.getKrakenX60(1).withReduction(6.75),40.0, 1);
   }
 }
