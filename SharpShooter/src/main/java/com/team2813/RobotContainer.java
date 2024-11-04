@@ -128,15 +128,18 @@ public class RobotContainer {
 
         AMP.onFalse(
                 new SequentialCommandGroup(
-                        //new ConditionalCommand(
-                                new SequentialCommandGroup(
-                                        new InstantCommand(amp::shootAmp, amp),
-                                        new WaitCommand(0.5),
-                                        new InstantCommand(amp::stop, amp)),
-                                /*Commands.none(),
-                                elevator::atPosition),*/
+                        // new ConditionalCommand(
+                        new SequentialCommandGroup(
+                                new InstantCommand(amp::shootAmp, amp),
+                                new WaitCommand(1),
+                                new InstantCommand(amp::stop, amp)
+                        ),
+                        /*Commands.none(),
+                        elevator::atPosition),*/
                         new InstantCommand(
-                                () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)));
+                                () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
+                )
+        );
 
         ZERO_ELEVATOR_TOP.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.TOP));
         ZERO_ELEVATOR_BOTTOM.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.BOTTOM));
