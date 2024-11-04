@@ -131,7 +131,7 @@ public class RobotContainer {
                         // new ConditionalCommand(
                         new SequentialCommandGroup(
                                 new InstantCommand(amp::shootAmp, amp),
-                                new WaitCommand(1),
+                                new WaitCommand(0.5),
                                 new InstantCommand(amp::stop, amp)
                         ),
                         /*Commands.none(),
@@ -140,6 +140,18 @@ public class RobotContainer {
                                 () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
                 )
         );
+        
+        BURST_INTAKE.onTrue(new SequentialCommandGroup(
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::intake, intake),
+                        new InstantCommand(amp::pushIn, amp)
+                ),
+                new WaitCommand(0.05),
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::stop, intake),
+                        new InstantCommand(amp::stop, amp)
+                )
+        ));
 
         ZERO_ELEVATOR_TOP.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.TOP));
         ZERO_ELEVATOR_BOTTOM.whileTrue(new ZeroElevatorCommand(elevator, Elevator.Position.BOTTOM));
