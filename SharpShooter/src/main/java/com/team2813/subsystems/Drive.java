@@ -136,8 +136,8 @@ public class Drive extends SubsystemBase {
                 drivetrain::getChassisSpeeds,
                 this::drive,
                 new HolonomicPathFollowerConfig(
-                        new PIDConstants(0, 0, 0), // Translation PID
-                        new PIDConstants(0, 0, 0), // Rotation PID
+                        new PIDConstants(0.1, 0, 0), // Translation PID
+                        new PIDConstants(0.1, 0, 0), // Rotation PID
                         MAX_VELOCITY,
                         0.303514,
                         new ReplanningConfig()),

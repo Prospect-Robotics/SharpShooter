@@ -7,6 +7,7 @@ package com.team2813;
 import static com.team2813.Constants.DriverConstants.*;
 import static com.team2813.Constants.OperatorConstants.*;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.team2813.commands.DefaultDriveCommand;
 import com.team2813.commands.ElevatorDefaultCommand;
 import com.team2813.commands.LockFunctionCommand;
@@ -17,6 +18,8 @@ import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
 
 import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 
 public class RobotContainer {
@@ -24,6 +27,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Elevator elevator = new Elevator();
     private final Drive drive = new Drive();
+    SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
     public RobotContainer() {
         elevator.setDefaultCommand(
@@ -43,6 +47,8 @@ public class RobotContainer {
                                 Units.RadiansPerSecond.of(
                                         -modifyAxis(DRIVER_CONTROLLER.getRightX())
                                                 * Drive.MAX_ROTATION)));
+        
+        SmartDashboard.putData(autoChooser);
         configureBindings();
     }
 
@@ -146,6 +152,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        return autoChooser.getSelected();
     }
 }
