@@ -8,6 +8,7 @@ import static com.team2813.Constants.DriverConstants.*;
 import static com.team2813.Constants.OperatorConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.team2813.commands.DefaultDriveCommand;
 import com.team2813.commands.ElevatorDefaultCommand;
 import com.team2813.commands.LockFunctionCommand;
@@ -49,6 +50,23 @@ public class RobotContainer {
                                                 * Drive.MAX_ROTATION)));
         
         SmartDashboard.putData(autoChooser);
+        
+        NamedCommands.registerCommand(
+                "Amp",
+                new SequentialCommandGroup(
+                        new ParallelRaceGroup(
+                                new WaitCommand(0.5),
+                                new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator)
+                        ),
+                        new InstantCommand(amp::shootAmp, amp),
+                        new WaitCommand(0.5),
+                        new ParallelCommandGroup(
+                                new InstantCommand(amp::stop, amp),
+                                new InstantCommand(() -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
+                        )
+                )
+        );
+        
         configureBindings();
     }
 

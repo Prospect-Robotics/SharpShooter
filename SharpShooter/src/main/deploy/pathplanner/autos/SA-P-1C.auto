@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7697852149880912,
-      "y": 7.085098657070823
+      "x": 0.7230373512225978,
+      "y": 6.665838871353511
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SA-P-1C"
+            "pathName": "SA-Amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp-Top Center"
           }
         }
       ]
