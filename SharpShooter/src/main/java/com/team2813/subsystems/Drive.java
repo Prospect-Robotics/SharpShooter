@@ -42,7 +42,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 
 public class Drive extends SubsystemBase {
 
-  public static final double MAX_VELOCITY = 10; // mps
+  public static final double MAX_VELOCITY = 4.288164666; // mps (measured via video over fixed distance)
   public static final double MAX_ROTATION = Math.PI * 3.5; // radians per second
   private final SwerveRequest.FieldCentric xyrRequest =
       new SwerveRequest.FieldCentric()
@@ -136,7 +136,7 @@ public class Drive extends SubsystemBase {
                 drivetrain::getChassisSpeeds,
                 this::drive,
                 new HolonomicPathFollowerConfig(
-                        new PIDConstants(0.1, 0, 0), // Translation PID
+                        new PIDConstants(2.2, 0, 0), // Translation PID
                         new PIDConstants(0.1, 0, 0), // Rotation PID
                         MAX_VELOCITY,
                         0.303514,
