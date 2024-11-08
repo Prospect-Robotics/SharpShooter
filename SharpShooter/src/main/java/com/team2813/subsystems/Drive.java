@@ -36,6 +36,7 @@ import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.pathplanner.lib.auto.AutoBuilder;
 
@@ -137,7 +138,7 @@ public class Drive extends SubsystemBase {
                 this::drive,
                 new HolonomicPathFollowerConfig(
                         new PIDConstants(2.2, 0, 0), // Translation PID
-                        new PIDConstants(0.1, 0, 0), // Rotation PID
+                        new PIDConstants(0.0999, 0, 0.1), // Rotation PID
                         MAX_VELOCITY,
                         0.303514,
                         new ReplanningConfig()),
@@ -154,7 +155,7 @@ public class Drive extends SubsystemBase {
   }
   private static boolean onRed() {
     return DriverStation.getAlliance()
-            .<Boolean>map((j) -> j == DriverStation.Alliance.Red)
+            .map((j) -> j == DriverStation.Alliance.Red)
             .orElse(false);
   }
   public Pose2d getAutoPose() {
@@ -201,5 +202,6 @@ public class Drive extends SubsystemBase {
     expectedState.set(drivetrain.getState().ModuleTargets);
     actualState.set(drivetrain.getState().ModuleStates);
     rotation.set(getRotation());
+    SmartDashboard.putNumber("rotation rate", drivetrain.getPigeon2().getRate());
   }
 }

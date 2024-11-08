@@ -18,6 +18,10 @@ public class Intake extends SubsystemBase {
   public void intake() {
     jerald.set(ControlMode.VOLTAGE, 9);
   }
+  
+  public void autoIntake() {
+    jerald.set(ControlMode.VOLTAGE, 12);
+  }
 
   public void outtake() {
     jerald.set(ControlMode.VOLTAGE, -6);

@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 7.6599031987881965,
-        "y": 7.372263968077424
+        "x": 7.943450861304454,
+        "y": 7.395932755460505
       },
       "prevControl": {
-        "x": 6.312840473377194,
-        "y": 7.461242437416615
+        "x": 6.596388135893451,
+        "y": 7.4849112247996965
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "top note"
     }
   ],
   "rotationTargets": [
@@ -48,11 +48,29 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.7,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Start_Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
+    "maxAngularVelocity": 500.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {

@@ -24,15 +24,21 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Amp"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Amp-Top Center"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop_Intake"
           }
         }
       ]

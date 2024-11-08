@@ -65,6 +65,22 @@ public class RobotContainer {
                 )
         );
         
+        NamedCommands.registerCommand(
+                "Start_Intake",
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::intake, intake),
+                        new InstantCommand(amp::pushIn, amp)
+                )
+        );
+        
+        NamedCommands.registerCommand(
+                "Stop_Intake",
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::stop, intake),
+                        new InstantCommand(amp::stop, amp)
+                )
+        );
+        
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData(autoChooser);
         
