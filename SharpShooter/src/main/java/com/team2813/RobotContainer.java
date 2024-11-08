@@ -28,7 +28,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Elevator elevator = new Elevator();
     private final Drive drive = new Drive();
-    SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
         elevator.setDefaultCommand(
@@ -49,23 +49,24 @@ public class RobotContainer {
                                         -modifyAxis(DRIVER_CONTROLLER.getRightX())
                                                 * Drive.MAX_ROTATION)));
         
-        SmartDashboard.putData(autoChooser);
-        
         NamedCommands.registerCommand(
                 "Amp",
                 new SequentialCommandGroup(
                         new ParallelRaceGroup(
-                                new WaitCommand(0.5),
+                                new WaitCommand(1),
                                 new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator)
                         ),
                         new InstantCommand(amp::shootAmp, amp),
-                        new WaitCommand(0.5),
+                        new WaitCommand(0.75),
                         new ParallelCommandGroup(
                                 new InstantCommand(amp::stop, amp),
                                 new InstantCommand(() -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
                         )
                 )
         );
+        
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData(autoChooser);
         
         configureBindings();
     }

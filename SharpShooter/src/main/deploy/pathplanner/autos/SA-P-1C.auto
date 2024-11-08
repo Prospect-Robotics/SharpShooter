@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7230373512225978,
-      "y": 6.665838871353511
+      "x": 1.4452293886100858,
+      "y": 7.292473692598125
     },
-    "rotation": 60.0
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,12 @@
           "type": "path",
           "data": {
             "pathName": "SA-Amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp"
           }
         },
         {

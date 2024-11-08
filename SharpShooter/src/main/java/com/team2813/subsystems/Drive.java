@@ -177,7 +177,6 @@ public class Drive extends SubsystemBase {
     drivetrain.setControl(chassisSpeedsRequest.withSpeeds(demand));
   }
   public void drive(double x, double y, double rotation) {
-    DriverStation.reportWarning(String.format("x: %f, y: %f, Ø: %f", x, y, rotation), false);
     drivetrain.setControl(
         xyrRequest
             .withVelocityX(x * multiplier)
