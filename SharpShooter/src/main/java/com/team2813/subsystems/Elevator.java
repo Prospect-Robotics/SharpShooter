@@ -38,7 +38,7 @@ public class Elevator extends MotorSubsystem<Elevator.Position> {
     }
     
     private static PIDController getPIDController() {
-        PIDController controller = new PIDController(0.041524, 0.01, 0);
+        PIDController controller = new PIDController(0.051524, 0.01, 0);
         controller.setTolerance(1.5, 23.784);
         return controller;
     }
@@ -46,7 +46,7 @@ public class Elevator extends MotorSubsystem<Elevator.Position> {
     @Override
     protected void useOutput(double output, double setpoint) {
         if (output > 0) {
-            output += 0.20798;
+            output += 0.40798;
         }
         super.useOutput(MathUtil.clamp(output, -7, 7), setpoint);
     }

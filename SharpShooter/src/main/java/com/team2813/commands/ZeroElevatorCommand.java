@@ -31,17 +31,17 @@ public class ZeroElevatorCommand extends Command {
   public void initialize() {
     double speed =
         switch (position) {
-          case TOP -> -0.75;
-          case BOTTOM -> 0.70;
+          case TOP -> 3;
+          case BOTTOM -> -3;
           default -> throw new AssertionError("Should be impossible");
         };
-    elevator.set(ControlMode.DUTY_CYCLE, speed);
+    elevator.set(ControlMode.VOLTAGE, speed);
     startTime = Timer.getFPGATimestamp();
   }
 
   @Override
   public boolean isFinished() {
-    return Timer.getFPGATimestamp() - startTime > 0.25
+    return Timer.getFPGATimestamp() - startTime > 0.05
         && Math.abs(elevator.getVelocityMeasure().in(Units.DegreesPerSecond)) < 5;
   }
 
