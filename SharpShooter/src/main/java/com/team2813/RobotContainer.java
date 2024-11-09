@@ -201,9 +201,9 @@ public class RobotContainer {
                 )
         );
         
-        AMP.onTrue(new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator));
+        SHOOT_NOTE.onTrue(new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator));
         
-        AMP.onFalse(
+        SHOOT_NOTE.onFalse(
                 new SequentialCommandGroup(
                         // new ConditionalCommand(
                         new SequentialCommandGroup(
