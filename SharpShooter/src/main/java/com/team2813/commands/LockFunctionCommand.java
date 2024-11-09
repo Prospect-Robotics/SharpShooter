@@ -2,6 +2,7 @@ package com.team2813.commands;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+
 import java.util.function.BooleanSupplier;
 
 public class LockFunctionCommand extends WaitUntilCommand {

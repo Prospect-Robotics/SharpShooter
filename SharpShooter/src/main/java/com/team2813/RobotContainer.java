@@ -18,7 +18,6 @@ import com.team2813.subsystems.Drive;
 import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
 
-import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
@@ -199,6 +198,23 @@ public class RobotContainer {
                                 new InstantCommand(drive::resetRotation, drive)
                         )
                         
+                )
+        );
+        
+        AMP.onTrue(new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator));
+        
+        AMP.onFalse(
+                new SequentialCommandGroup(
+                        // new ConditionalCommand(
+                        new SequentialCommandGroup(
+                                new InstantCommand(amp::shootNote, amp),
+                                new WaitCommand(0.5),
+                                new InstantCommand(amp::stop, amp)
+                        ),
+                        /*Commands.none(),
+                        elevator::atPosition),*/
+                        new InstantCommand(
+                                () -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
                 )
         );
     }
