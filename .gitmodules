@@ -1,3 +1,3 @@
-[submodule "SharpShooter/lib2813"]
+[submodule "lib2813"]
 	path = SharpShooter/lib2813
 	url = https://github.com/Prospect-Robotics/lib2813.git
