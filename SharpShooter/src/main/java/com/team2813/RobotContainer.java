@@ -7,6 +7,8 @@ package com.team2813;
 import static com.team2813.Constants.DriverConstants.*;
 import static com.team2813.Constants.OperatorConstants.*;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.team2813.commands.DefaultDriveCommand;
 import com.team2813.commands.ElevatorDefaultCommand;
 import com.team2813.commands.LockFunctionCommand;
@@ -17,6 +19,8 @@ import com.team2813.subsystems.Elevator;
 import com.team2813.subsystems.Intake;
 
 import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 
 public class RobotContainer {
@@ -24,6 +28,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Elevator elevator = new Elevator();
     private final Drive drive = new Drive();
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
         elevator.setDefaultCommand(
@@ -43,6 +48,42 @@ public class RobotContainer {
                                 Units.RadiansPerSecond.of(
                                         -modifyAxis(DRIVER_CONTROLLER.getRightX())
                                                 * Drive.MAX_ROTATION)));
+        
+        NamedCommands.registerCommand(
+                "Amp",
+                new SequentialCommandGroup(
+                        new ParallelRaceGroup(
+                                new WaitCommand(1),
+                                new LockFunctionCommand(elevator::atPosition, () -> elevator.setSetpoint(Elevator.Position.TOP), elevator)
+                        ),
+                        new InstantCommand(amp::shootAmp, amp),
+                        new WaitCommand(0.75),
+                        new ParallelCommandGroup(
+                                new InstantCommand(amp::stop, amp),
+                                new InstantCommand(() -> elevator.setSetpoint(Elevator.Position.BOTTOM), elevator)
+                        )
+                )
+        );
+        
+        NamedCommands.registerCommand(
+                "Start_Intake",
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::intake, intake),
+                        new InstantCommand(amp::pushIn, amp)
+                )
+        );
+        
+        NamedCommands.registerCommand(
+                "Stop_Intake",
+                new ParallelCommandGroup(
+                        new InstantCommand(intake::stop, intake),
+                        new InstantCommand(amp::stop, amp)
+                )
+        );
+        
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData(autoChooser);
+        
         configureBindings();
     }
 
@@ -146,6 +187,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        return autoChooser.getSelected();
     }
 }

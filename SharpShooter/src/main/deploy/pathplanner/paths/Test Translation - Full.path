@@ -3,60 +3,70 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7697852149880912,
-        "y": 7.085098657070823
+        "x": 2.0,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7697852149880924,
-        "y": 7.085098657070823
+        "x": 3.0,
+        "y": 5.0
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.3488318098354575,
-        "y": 7.578550717960625
+        "x": 4.0,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 2.0671402116827333,
-        "y": 7.18543442238182
+        "x": 3.0,
+        "y": 5.0
       },
       "nextControl": {
-        "x": 2.467283870725259,
-        "y": 7.743857158358708
+        "x": 5.0,
+        "y": 5.0
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.559685572831766,
-        "y": 7.361431811169112
+        "x": 6.0,
+        "y": 3.0
       },
       "prevControl": {
-        "x": 6.928066934892819,
-        "y": 7.183789069248784
+        "x": 6.0033077497895615,
+        "y": 4.069358754189636
+      },
+      "nextControl": {
+        "x": 5.9966922502104385,
+        "y": 1.9306412458103637
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.0,
+        "y": 1.0
+      },
+      "prevControl": {
+        "x": 5.972508923971203,
+        "y": 1.3307566025683815
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 90.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
+    "maxAngularVelocity": 500.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
@@ -65,7 +75,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Test Translation",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -18,6 +18,10 @@ public class Amp extends SubsystemBase {
   public void pushIn() {
     gary.set(ControlMode.VOLTAGE, 6);
   }
+  
+  public void autoPushIn() {
+    gary.set(ControlMode.VOLTAGE, 12);
+  }
 
   public void pushOut() {
     gary.set(ControlMode.VOLTAGE, -6);
