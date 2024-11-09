@@ -7,15 +7,15 @@ import java.util.function.Supplier;
 
 public class DefaultDriveCommand extends Command {
   private final Drive drive;
-  private final Supplier<Measure<Velocity<Distance>>> xSupplier;
-  private final Supplier<Measure<Velocity<Distance>>> ySupplier;
-  private final Supplier<Measure<Velocity<Angle>>> rotationSupplier;
+  private final Supplier<Double> xSupplier;
+  private final Supplier<Double> ySupplier;
+  private final Supplier<Double> rotationSupplier;
 
   public DefaultDriveCommand(
       Drive drive,
-      Supplier<Measure<Velocity<Distance>>> xSupplier,
-      Supplier<Measure<Velocity<Distance>>> ySupplier,
-      Supplier<Measure<Velocity<Angle>>> rotationSupplier) {
+      Supplier<Double> xSupplier,
+      Supplier<Double> ySupplier,
+      Supplier<Double> rotationSupplier) {
     this.drive = drive;
     this.xSupplier = xSupplier;
     this.ySupplier = ySupplier;
@@ -26,8 +26,9 @@ public class DefaultDriveCommand extends Command {
   @Override
   public void execute() {
     drive.drive(
-        xSupplier.get().in(Units.MetersPerSecond),
-        ySupplier.get().in(Units.MetersPerSecond),
-        rotationSupplier.get().in(Units.RadiansPerSecond));
+        xSupplier.get(),
+        ySupplier.get(),
+        rotationSupplier.get()
+    );
   }
 }

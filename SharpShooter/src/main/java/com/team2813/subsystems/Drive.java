@@ -149,6 +149,7 @@ public class Drive extends SubsystemBase {
       Shuffleboard.getTab("swerve").addDouble(String.format("Module [%d] position", i), () -> getPosition(temp));
     }
     drivetrain.seedFieldRelative();
+    drivetrain.registerTelemetry((s) -> position.set(s.Pose));
   }
   
   private double getPosition(int moduleId) {
@@ -199,14 +200,13 @@ public class Drive extends SubsystemBase {
           NetworkTableInstance.getDefault().getStructArrayTopic("expected state", SwerveModuleState.struct).publish();
   StructArrayPublisher<SwerveModuleState> actualState =
           NetworkTableInstance.getDefault().getStructArrayTopic("actual state", SwerveModuleState.struct).publish();
-  StructPublisher<Rotation2d> rotation =
-          NetworkTableInstance.getDefault().getStructTopic("rotation", Rotation2d.struct).publish();
+  StructPublisher<Pose2d> position =
+          NetworkTableInstance.getDefault().getStructTopic("position", Pose2d.struct).publish();
   
   @Override
   public void periodic() {
     expectedState.set(drivetrain.getState().ModuleTargets);
     actualState.set(drivetrain.getState().ModuleStates);
-    rotation.set(getRotation());
     SmartDashboard.putNumber("rotation rate", drivetrain.getPigeon2().getRate());
   }
 }

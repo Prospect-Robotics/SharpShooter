@@ -36,18 +36,9 @@ public class RobotContainer {
         drive.setDefaultCommand(
                 new DefaultDriveCommand(
                         drive,
-                        () ->
-                                Units.MetersPerSecond.of(
-                                        -modifyAxis(DRIVER_CONTROLLER.getLeftY())
-                                                * Drive.MAX_VELOCITY),
-                        () ->
-                                Units.MetersPerSecond.of(
-                                        -modifyAxis(DRIVER_CONTROLLER.getLeftX())
-                                                * Drive.MAX_VELOCITY),
-                        () ->
-                                Units.RadiansPerSecond.of(
-                                        -modifyAxis(DRIVER_CONTROLLER.getRightX())
-                                                * Drive.MAX_ROTATION)));
+                        () -> -modifyAxis(DRIVER_CONTROLLER.getLeftY()) * Drive.MAX_VELOCITY,
+                        () -> -modifyAxis(DRIVER_CONTROLLER.getLeftX()) * Drive.MAX_VELOCITY,
+                        () -> -modifyAxis(DRIVER_CONTROLLER.getRightX()) * Drive.MAX_ROTATION));
         
         NamedCommands.registerCommand(
                 "Amp",
@@ -203,7 +194,11 @@ public class RobotContainer {
         RESET_POSITIONING.whileTrue(
                 new SequentialCommandGroup(
                         new WaitCommand(1),
-                        new InstantCommand(drive::resetRotation, drive)
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> SmartDashboard.putBoolean("reset-position", true)),
+                                new InstantCommand(drive::resetRotation, drive)
+                        )
+                        
                 )
         );
     }
