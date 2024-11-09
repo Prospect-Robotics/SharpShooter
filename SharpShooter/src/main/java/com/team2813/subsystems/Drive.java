@@ -148,6 +148,7 @@ public class Drive extends SubsystemBase {
       int temp = i;
       Shuffleboard.getTab("swerve").addDouble(String.format("Module [%d] position", i), () -> getPosition(temp));
     }
+    drivetrain.seedFieldRelative();
   }
   
   private double getPosition(int moduleId) {
@@ -163,6 +164,10 @@ public class Drive extends SubsystemBase {
   }
   public void resetOdometry(Pose2d currentPose) {
     drivetrain.seedFieldRelative(currentPose);
+  }
+  
+  public void resetRotation() {
+    drivetrain.seedFieldRelative();
   }
 
   public void stop() {

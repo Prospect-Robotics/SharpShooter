@@ -38,11 +38,11 @@ public class RobotContainer {
                         drive,
                         () ->
                                 Units.MetersPerSecond.of(
-                                        modifyAxis(DRIVER_CONTROLLER.getLeftX())
+                                        -modifyAxis(DRIVER_CONTROLLER.getLeftY())
                                                 * Drive.MAX_VELOCITY),
                         () ->
                                 Units.MetersPerSecond.of(
-                                        -modifyAxis(DRIVER_CONTROLLER.getLeftY())
+                                        -modifyAxis(DRIVER_CONTROLLER.getLeftX())
                                                 * Drive.MAX_VELOCITY),
                         () ->
                                 Units.RadiansPerSecond.of(
@@ -199,6 +199,13 @@ public class RobotContainer {
 
         SLOW_MODE.onTrue(new InstantCommand(() -> drive.enableSlowMode(true), drive));
         SLOW_MODE.onFalse(new InstantCommand(() -> drive.enableSlowMode(false), drive));
+        
+        RESET_POSITIONING.whileTrue(
+                new SequentialCommandGroup(
+                        new WaitCommand(1),
+                        new InstantCommand(drive::resetRotation, drive)
+                )
+        );
     }
 
     public Command getAutonomousCommand() {

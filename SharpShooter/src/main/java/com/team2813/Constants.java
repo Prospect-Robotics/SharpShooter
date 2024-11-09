@@ -38,6 +38,7 @@ public class Constants {
     public static Trigger MANUAL_OUTTAKE = DRIVER_CONTROLLER.R2();
     public static Trigger MANUAL_INTAKE = DRIVER_CONTROLLER.R1();
     public static Trigger TEST = DRIVER_CONTROLLER.cross();
+    public static Trigger RESET_POSITIONING = DRIVER_CONTROLLER.povUp();
 
     private DriverConstants() {
       throw new AssertionError("Not instantiable");
