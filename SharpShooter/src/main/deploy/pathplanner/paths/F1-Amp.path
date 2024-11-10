@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9024464489486426,
-        "y": 6.762755940187649
+        "x": 5.918005406829927,
+        "y": 7.418976745661114
       },
       "isLocked": false,
       "linkedName": "top note"
@@ -20,8 +20,8 @@
         "y": 7.70528086633534
       },
       "prevControl": {
-        "x": 1.8753103668038966,
-        "y": 6.92472542154982
+        "x": 3.4845971201057244,
+        "y": 7.70528086633534
       },
       "nextControl": null,
       "isLocked": false,
@@ -35,19 +35,7 @@
       "rotateFast": true
     }
   ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.75,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 500.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.0,

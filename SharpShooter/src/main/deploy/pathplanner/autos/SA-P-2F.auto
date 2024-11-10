@@ -52,6 +52,36 @@
           "data": {
             "name": "Amp"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp-F2"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop_Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "F2-Amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp"
+          }
         }
       ]
     }

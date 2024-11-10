@@ -26,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp-Top Center"
+            "pathName": "Amp-F1"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0.5
           }
         },
         {
