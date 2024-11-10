@@ -68,7 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp-F2"
+            "pathName": "Amp-C1"
           }
         },
         {
@@ -81,6 +81,18 @@
           "type": "named",
           "data": {
             "name": "Stop_Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C1-Amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp"
           }
         }
       ]

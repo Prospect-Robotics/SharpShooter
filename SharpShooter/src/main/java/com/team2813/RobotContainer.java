@@ -39,6 +39,11 @@ public class RobotContainer {
                         () -> -modifyAxis(DRIVER_CONTROLLER.getLeftX()) * Drive.MAX_VELOCITY,
                         () -> -modifyAxis(DRIVER_CONTROLLER.getRightX()) * Drive.MAX_ROTATION));
         
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData(autoChooser);
+        
+        configureBindings();
+        
         NamedCommands.registerCommand(
                 "Amp",
                 new SequentialCommandGroup(
@@ -58,8 +63,8 @@ public class RobotContainer {
         NamedCommands.registerCommand(
                 "Start_Intake",
                 new ParallelCommandGroup(
-                        new InstantCommand(intake::intake, intake),
-                        new InstantCommand(amp::pushIn, amp)
+                        new InstantCommand(amp::pushIn, amp),
+                        new InstantCommand(intake::intake, intake)
                 )
         );
         
@@ -70,11 +75,6 @@ public class RobotContainer {
                         new InstantCommand(amp::stop, amp)
                 )
         );
-        
-        autoChooser = AutoBuilder.buildAutoChooser();
-        SmartDashboard.putData(autoChooser);
-        
-        configureBindings();
     }
 
     private static double deadband(double value, double deadband) {

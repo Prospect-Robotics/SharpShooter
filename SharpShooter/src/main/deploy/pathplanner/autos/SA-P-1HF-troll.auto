@@ -50,37 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "F1-Amp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Amp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Start_Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp-F2"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop_Intake"
+            "pathName": "F1-troll"
           }
         }
       ]

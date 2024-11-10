@@ -32,42 +32,6 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp-F1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop_Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "F1-Amp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Amp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Start_Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "Amp-F2"
           }
         },
@@ -81,6 +45,18 @@
           "type": "named",
           "data": {
             "name": "Stop_Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "F2-Amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Amp"
           }
         }
       ]

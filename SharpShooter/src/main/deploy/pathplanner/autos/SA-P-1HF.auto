@@ -24,6 +24,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Start_Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Amp-F1"
