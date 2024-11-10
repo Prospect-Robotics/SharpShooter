@@ -28,6 +28,7 @@ public class RobotContainer {
     private final Elevator elevator = new Elevator();
     private final Drive drive = new Drive();
     private final SendableChooser<Command> autoChooser;
+    private boolean resetPosition = false;
 
     public RobotContainer() {
         elevator.setDefaultCommand(
@@ -38,11 +39,6 @@ public class RobotContainer {
                         () -> -modifyAxis(DRIVER_CONTROLLER.getLeftY()) * Drive.MAX_VELOCITY,
                         () -> -modifyAxis(DRIVER_CONTROLLER.getLeftX()) * Drive.MAX_VELOCITY,
                         () -> -modifyAxis(DRIVER_CONTROLLER.getRightX()) * Drive.MAX_ROTATION));
-        
-        autoChooser = AutoBuilder.buildAutoChooser();
-        SmartDashboard.putData(autoChooser);
-        
-        configureBindings();
         
         NamedCommands.registerCommand(
                 "Amp",
@@ -75,6 +71,11 @@ public class RobotContainer {
                         new InstantCommand(amp::stop, amp)
                 )
         );
+        
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData(autoChooser);
+        
+        configureBindings();
     }
 
     private static double deadband(double value, double deadband) {
@@ -192,9 +193,12 @@ public class RobotContainer {
         
         RESET_POSITIONING.whileTrue(
                 new SequentialCommandGroup(
-                        new WaitCommand(1),
+                        new WaitCommand(0.25),
                         new ParallelCommandGroup(
-                                new InstantCommand(() -> SmartDashboard.putBoolean("reset-position", true)),
+                                new InstantCommand(() -> {
+                                    resetPosition = !resetPosition;
+                                    SmartDashboard.putBoolean("reset-position", resetPosition);
+                                }),
                                 new InstantCommand(drive::resetRotation, drive)
                         )
                         
